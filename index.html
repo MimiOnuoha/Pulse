@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<head>
+	  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- // <script src="/main.js"></script> -->
+<script>
+	var socket = io();
+  
+
+  socket.on('newValue', function (data) {
+  	// DATA COMES IN HERE
+
+  	//make sure you understand this 
+  	//push this to github
+  	// set pup digitalocean instance (you'll have to do npm install)
+  	// pull this from github onto the digitalocean instance
+  	// (maybe eventually use sublime sftp )
+  	// test it by making a get request from the browser from the query string, make sure its getting sent
+  	//send to jonathan the ip address  
+
+  	console.log(data);
+
+  });
+
+</script>
+</head>
+
+<body>
+	<h1> HELLO!</h1>
+</body>
