@@ -5,7 +5,7 @@ var url = require('url');
 
 var currentUser = {};
 app.get('/', function(req, res){
-  res.sendfile('index.html');
+  res.sendFile('index.html');
 });
 
 app.get('/sample', function(req, res){
@@ -13,12 +13,16 @@ app.get('/sample', function(req, res){
   var query = url_parts.query;
   console.log(query);
   io.emit('newValue', {value: query.test});
-  res.send(200);
+  res.sendStatus(200);
   
 });
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+// http.listen(4000, function(){
+//   console.log('listening on *:4000');
+// });
+
+http.listen(8000, "104.236.89.78" function(){
+  console.log('listening on *:4000');
 });
 
 
