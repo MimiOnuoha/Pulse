@@ -5,26 +5,25 @@ var url = require('url');
 
 var currentUser = {};
 app.get('/', function(req, res){
-  res.sendFile('index.html');
+  res.sendfile('index.html');
 });
 
-app.get('/sample', function(req, res){
+app.get('/data', function(req, res){
   var url_parts = url.parse(req.url, true);
   var query = url_parts.query;
   console.log(query);
-  io.emit('newValue', {value: query.test});
+  io.emit('newValue', {value: query.value});
   res.sendStatus(200);
   
 });
 
-// http.listen(4000, function(){
-//   console.log('listening on *:4000');
-// });
-
-http.listen(8000, "104.236.89.78", function(){
+http.listen(4000, function(){
   console.log('listening on *:4000');
 });
 
+// http.listen(8000, "104.236.89.78", function(){
+//   console.log('listening on *:4000');
+// });
 
 
 // Send current time to all connected clients
