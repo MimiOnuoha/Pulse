@@ -21,9 +21,6 @@ http.listen(4000, function(){
   console.log('listening on *:4000');
 });
 
-// http.listen(8000, "104.236.89.78", function(){
-//   console.log('listening on *:4000');
-// });
 
 
 // Send current time to all connected clients
