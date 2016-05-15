@@ -13,15 +13,12 @@ app.get('/data', function(req, res){
   var query = url_parts.query;
   console.log(query);
   io.emit('newValue', {value: query.value});
-  res.sendStatus(200);
-  
+  res.sendStatus(200);  
 });
 
-http.listen(process.env.PORT || 5000, function(){
-  console.log('listening on *:4000');
+http.listen(5000, function(){
+  console.log('listening on *:5000');
 });
-
-
 
 // Send current time to all connected clients
 function sendTime() {
