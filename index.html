@@ -29,18 +29,37 @@
       console.log("updating!", parseInt(data.value));
       update(parseInt(data.value));
 
-      // https://fathomless-river-42943.herokuapp.com/data?value=70
-      //ip address  (104.236.89.78)
     });
 
     function getColor(hr) {
       if (hr < 70) {
-        return "#00ff00";
+        return "#fff5f0";
+      }
+      if (hr < 80) {
+        return "#fee0d2";
+      }
+      if (hr < 90) {
+        return "#fcbba1";
+      }
+      if (hr < 100) {
+        return "#fc9272";
+      }
+      if (hr < 110) {
+        return "#fb6a4a";
+      }
+      if (hr < 120) {
+        return "#ef3b2c";
+      }
+      if (hr < 130) {
+        return "#cb181d";
+      }
+      if (hr < 140) {
+        return "#a50f15";
+      }
+       if (hr < 150) {
+        return "#67000d";
       }
 
-      if (hr < 90) {
-        return "#0000ff";
-      }
 
       return "#ff0000";
     }
