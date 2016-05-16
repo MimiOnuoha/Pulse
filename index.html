@@ -114,8 +114,8 @@
       .attr("x", width - 100)
       .text(heartrate)
       .transition()
-      .east("linear")
-        .style("fill", function() {
+      .ease("linear")
+      .style("fill", function() {
         return getColor(heartrate);
       })
       .remove();
