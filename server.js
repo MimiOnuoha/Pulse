@@ -16,8 +16,8 @@ app.get('/data', function(req, res){
   res.sendStatus(200);  
 });
 
-http.listen(5000, function(){
-  console.log('listening on *:5000');
+http.listen(4000, function(){
+  console.log('listening on *:4000');
 });
 
 // Send current time to all connected clients

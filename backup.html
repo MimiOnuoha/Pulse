@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<head>
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="//d3js.org/d3.v3.min.js"></script>
+  <!-- // <script src="/main.js"></script> -->
+  <style>
+    .dot {
+      fill: #777;
+    }
+    
+    .ring {
+      fill: none;
+      stroke: #777;
+    }
+  </style>  
+</head>
+
+<body>
+  <div id="viz"></div>
+
+  <script>
+    var socket = io();
+  
+    console.log("Initializing!");
+
+    socket.on('newValue', function (data) {
+      // DATA COMES IN HERE
+      console.log("updating!", parseInt(data.value));
+      update(parseInt(data.value));
+
+    });
+
+    function getColor(hr) {
+      if (hr < 70) {
+        return "#fff5f0";
+      }
+      if (hr < 80) {
+        return "#fee0d2";
+      }
+      if (hr < 90) {
+        return "#fcbba1";
+      }
+      if (hr < 100) {
+        return "#fc9272";
+      }
+      if (hr < 110) {
+        return "#fb6a4a";
+      }
+      if (hr < 120) {
+        return "#ef3b2c";
+      }
+      if (hr < 130) {
+        return "#cb181d";
+      }
+      if (hr < 140) {
+        return "#a50f15";
+      }
+       if (hr < 150) {
+        return "#67000d";
+      }
+
+
+      return "#ff0000";
+    }
+
+    function update(heartrate) {
+      if (isNaN(heartrate)) { return; }
+      console.log("Updating heartrate:", heartrate);
+      svg.append("circle")
+        .attr("class", "ring")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+        .attr("r", 15)
+        .style("stroke-width", 7)
+        .style("stroke", function() {
+          return getColor(heartrate);
+        })
+        .transition()
+        .ease("linear")
+        .duration(6000)
+        .style("stroke-opacity", 1e-6)
+        .style("stroke", function() {
+          return getColor(heartrate);
+        })
+        .attr("r", 130)
+        .remove();
+    }
+
+    // todo put a bunch o' d3 here
+
+    var width = 960,
+      height = 500;
+
+    var pulse = 90; 
+
+    var svg = d3.select("#viz").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    svg.append("circle")
+      .attr("class", "dot")
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+      .attr("r", 15);
+
+    console.log("Initialized!");
+  </script>
+</body>

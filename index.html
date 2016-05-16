@@ -1,107 +1,143 @@
 <!DOCTYPE html>
+
 <head>
-	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+          <!-- Stylesheets (from Skeleton, which is kind of overkill, but oh well: http://getskeleton.com/) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+                <!-- Javascript  -->
   <script src="/socket.io/socket.io.js"></script>
   <script src="//d3js.org/d3.v3.min.js"></script>
-  <!-- // <script src="/main.js"></script> -->
   <style>
-    .dot {
-      fill: #777;
-    }
-    
-    .ring {
-      fill: none;
-      stroke: #777;
-    }
-  </style>  
-</head>
-
-<body>
-  <div id="viz"></div>
-
-  <script>
-    var socket = io();
+  .dot {
+    fill: #777;
+  }
   
-    console.log("Initializing!");
+  .ring {
+    fill: none;
+    stroke: #777;
+  }
+  
+  text {
+    font: 90px monospace;
+    font-family: 'Droid Sans', sans-serif;
+    font-color: #777;
+  }
+  </style>
+</head>
+<body>
+    <div class="container">
+    <div class="row">
+      <div class="twelve columns" style="margin-top: 15%">
+        <div id="viz"> </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  var socket = io();
 
-    socket.on('newValue', function (data) {
-      // DATA COMES IN HERE
-      console.log("updating!", parseInt(data.value));
-      update(parseInt(data.value));
+  console.log("Initializing!");
 
-    });
+  socket.on('newValue', function(data) {
+    // DATA COMES IN HERE
+    console.log("updating!", parseInt(data.value));
+    update(parseInt(data.value));
 
-    function getColor(hr) {
-      if (hr < 70) {
-        return "#fff5f0";
-      }
-      if (hr < 80) {
-        return "#fee0d2";
-      }
-      if (hr < 90) {
-        return "#fcbba1";
-      }
-      if (hr < 100) {
-        return "#fc9272";
-      }
-      if (hr < 110) {
-        return "#fb6a4a";
-      }
-      if (hr < 120) {
-        return "#ef3b2c";
-      }
-      if (hr < 130) {
-        return "#cb181d";
-      }
-      if (hr < 140) {
-        return "#a50f15";
-      }
-       if (hr < 150) {
-        return "#67000d";
-      }
+  });
 
-
-      return "#ff0000";
+  function getColor(hr) {
+    if (hr < 70) {
+      return "#fff5f0";
+    }
+    if (hr < 80) {
+      return "#fee0d2";
+    }
+    if (hr < 90) {
+      return "#fcbba1";
+    }
+    if (hr < 100) {
+      return "#fc9272";
+    }
+    if (hr < 110) {
+      return "#fb6a4a";
+    }
+    if (hr < 120) {
+      return "#ef3b2c";
+    }
+    if (hr < 130) {
+      return "#cb181d";
+    }
+    if (hr < 140) {
+      return "#a50f15";
+    }
+    if (hr < 150) {
+      return "#67000d";
     }
 
-    function update(heartrate) {
-      if (isNaN(heartrate)) { return; }
-      console.log("Updating heartrate:", heartrate);
-      svg.append("circle")
-        .attr("class", "ring")
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-        .attr("r", 15)
-        .style("stroke-width", 7)
-        .style("stroke", function() {
-          return getColor(heartrate);
-        })
-        .transition()
-        .ease("linear")
-        .duration(6000)
-        .style("stroke-opacity", 1e-6)
-        .style("stroke", function() {
-          return getColor(heartrate);
-        })
-        .attr("r", 130)
-        .remove();
+    return "#ff0000";
+  }
+
+  function update(heartrate) {
+    if (isNaN(heartrate)) {
+      return;
     }
+    console.log("Updating heartrate:", heartrate);
 
-    // todo put a bunch o' d3 here
-
-    var width = 960,
-      height = 500;
-
-    var pulse = 90; 
-
-    var svg = d3.select("#viz").append("svg")
-      .attr("width", width)
-      .attr("height", height);
+    d3.select(".dot")
+      .style("fill", function() {
+        return getColor(heartrate);
+      })
 
     svg.append("circle")
-      .attr("class", "dot")
+      .attr("class", "ring")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-      .attr("r", 15);
+      .attr("r", 45)
+      .style("stroke-width", 11)
+      .style("stroke", function() {
+        return getColor(heartrate);
+      })
+      .transition()
+      .ease("linear")
+      .duration(6000)
+      .style("stroke-opacity", 1e-6)
+      .style("stroke", function() {
+        return getColor(heartrate);
+      })
+      .attr("r", 250)
+      .remove();
 
-    console.log("Initialized!");
+    svg.append("text")
+      .attr("class", "text")
+      .attr("dy", ".35em")
+      .attr("y", height - 50)
+      .attr("x", width - 100)
+      .text(heartrate)
+      .transition()
+      .east("linear")
+        .style("fill", function() {
+        return getColor(heartrate);
+      })
+      .remove();
+
+  }
+
+  var width = 900,
+    height = 500;
+
+
+  var svg = d3.select("#viz").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  svg.append("circle")
+    .attr("class", "dot")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+    .attr("r", 45 );
+
+
+  console.log("Initialized!");
   </script>
 </body>
+
+</html>
