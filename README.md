@@ -17,6 +17,8 @@ In *Pulse*, heart rate data is collected in real-time, then visually and publicl
 Shown at [Data & Society Reception](https://www.eventbrite.com/e/data-society-reception-registration-24784612443), May 17 2016. 
 
 ## Notes and Thanks
-[This](http://bildr.org/2011/08/heartrate-arduino/) tutorial was super instrumental.   
+[This](http://bildr.org/2011/08/heartrate-arduino/) tutorial was super instrumental.  
+
+Still need to amend the server.js file.  
 
 Special thanks to [Myk Bilokonsky](https://twitter.com/mykola) for Javascript help.
