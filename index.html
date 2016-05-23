@@ -29,13 +29,14 @@
 <body>
     <div class="container">
     <div class="row">
-      <div class="twelve columns" style="margin-top: 15%">
+      <div class="twelve columns" style="margin-top: -10%">
         <div id="viz"> </div>
       </div>
     </div>
   </div>
   <script>
   var socket = io();
+  console.log(socket);
 
   console.log("Initializing!");
 
@@ -48,34 +49,34 @@
 
   function getColor(hr) {
     if (hr < 70) {
-      return "#fff5f0";
+      return "#74a9cf";
     }
     if (hr < 80) {
-      return "#fee0d2";
+      return "#f2c449";
     }
     if (hr < 90) {
-      return "#fcbba1";
+      return "#feb24c";
     }
     if (hr < 100) {
-      return "#fc9272";
+      return "#fd8d3c";
     }
     if (hr < 110) {
-      return "#fb6a4a";
+      return "#fc4e2a"; 
     }
     if (hr < 120) {
-      return "#ef3b2c";
+      return "#e31a1c";
     }
     if (hr < 130) {
-      return "#cb181d";
+      return "#bd0026";
     }
     if (hr < 140) {
       return "#a50f15";
     }
     if (hr < 150) {
-      return "#67000d";
+      return "#800026";
     }
 
-    return "#ff0000";
+
   }
 
   function update(heartrate) {
@@ -110,11 +111,15 @@
     svg.append("text")
       .attr("class", "text")
       .attr("dy", ".35em")
-      .attr("y", height - 50)
-      .attr("x", width - 100)
+      .attr("y", height - 55)
+      .attr("x", width /2 - 42)
       .text(heartrate)
+        .style("fill", function() {
+        return getColor(heartrate);
+      })
       .transition()
       .ease("linear")
+      .duration(700)
       .style("fill", function() {
         return getColor(heartrate);
       })
@@ -122,8 +127,8 @@
 
   }
 
-  var width = 900,
-    height = 500;
+  var width = 1000,
+    height = 800;
 
 
   var svg = d3.select("#viz").append("svg")
